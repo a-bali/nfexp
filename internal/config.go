@@ -9,7 +9,6 @@ var (
 	NfdumpCmd string
 	WebPort   int
 	WebHost   string
-	WebDir    string
 )
 
 func ParseArgs() {
@@ -17,6 +16,5 @@ func ParseArgs() {
 	flag.StringVar(&NfdumpCmd, "nfdumpcmd", "nfdump", "Path to nfdump binary")
 	flag.IntVar(&WebPort, "port", 8080, "Port to bind for web interface")
 	flag.StringVar(&WebHost, "host", "", "Host to bind for web interface")
-	flag.StringVar(&WebDir, "webdir", "./web/", "Directory where static web assets are located")
 	flag.Parse()
 }
