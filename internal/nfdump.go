@@ -3,11 +3,12 @@ package nfexp
 import (
 	"log"
 	"os/exec"
+	"strings"
 )
 
 func runNfdump(params ...string) (string, error) {
-	params = append(params, "-R", NfdumpDir, "-o", "json")
-	log.Println("Running nfdump with args:", params)
+	params = append([]string{"-R", NfdumpDir}, params...)
+	log.Printf("Running nfdump with args: [%s]", strings.Join(params, ","))
 	cmd := exec.Command(NfdumpCmd, params...)
 
 	output, error := cmd.Output()
