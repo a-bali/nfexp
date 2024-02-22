@@ -1,5 +1,5 @@
 export async function load({ fetch, params }) {
-    const response = await fetch("/api/overview");
-    const value = await response.text();
-    return { response: value };
+  const base = import.meta.env.VITE_API_BASEURL || "";
+  const res = fetch(base + "/api/overview").then((r) => r.text());
+  return { overview: { promise: res } };
 }
