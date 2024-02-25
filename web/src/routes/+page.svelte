@@ -1,6 +1,6 @@
 <script>
     import { Chart } from "svelte-echarts";
-    import { formatBytes } from "$lib/format.js";
+    import { formatBytes } from "$lib";
     export let data;
     var options;
 

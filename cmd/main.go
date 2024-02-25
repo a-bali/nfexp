@@ -17,8 +17,8 @@ func logRequest(handler http.Handler) http.Handler {
 func main() {
 	nfexp.ParseArgs()
 	http.Handle("/", nfexp.StaticFileServer())
-	http.HandleFunc("/api/overview", nfexp.ServeOverview)
-	http.HandleFunc("/api/query", nfexp.ServeQuery)
+	http.HandleFunc("/api/cmd", nfexp.ServeCmd)
+	http.HandleFunc("/api/dns", nfexp.ServeDns)
 	log.Printf("Launching web server on %s:%d", nfexp.WebHost, nfexp.WebPort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", nfexp.WebHost, nfexp.WebPort), logRequest(http.DefaultServeMux)))
 }

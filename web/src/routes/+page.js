@@ -1,5 +1,9 @@
+import { fetchApi } from "$lib";
+
 export async function load({ fetch, params }) {
-  const base = import.meta.env.VITE_API_BASEURL || "";
-  const res = fetch(base + "/api/overview").then((r) => r.text());
-  return { overview: { promise: res } };
+  return {
+    overview: {
+      promise: fetchApi("cmd", "POST", { command: "-g" }).then((r) => r.text()),
+    },
+  };
 }
