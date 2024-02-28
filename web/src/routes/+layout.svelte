@@ -4,6 +4,7 @@
   var tabs = [
     { name: "Home", href: "/" },
     { name: "Query", href: "/query" },
+    { name: "Reports", href: "/reports" },
   ];
 
   $: route = "/" + $page.url.pathname.split("/")[1];
