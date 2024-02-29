@@ -1,14 +1,14 @@
 <script>
   import { DataHandler, Th, ThFilter } from "@vincjo/datatables";
-  import { fetchApi, csv2map, formatBytes } from "$lib";
+  import { csv2map, formatBytes, apiUrl } from "$lib";
 
   export let report;
 
   function iplookups(d) {
     d.forEach((row, i) => {
-      d[i]["host"] = fetchApi("dns", "GET", { ip: row["val"] }).then((r) =>
-        r.text(),
-      );
+      d[i]["host"] = fetch(
+        apiUrl("dns?") + new URLSearchParams({ ip: row["val"] }),
+      ).then((r) => r.text());
     });
     return d;
   }

@@ -1,9 +1,9 @@
-import { fetchApi } from "$lib";
+import { apiUrl } from "$lib";
 
 export async function load({ fetch, params }) {
   return {
     reports: {
-      promise: fetchApi("reports", "GET").then((r) => r.json()),
+      promise: fetch(apiUrl("reports")).then((r) => r.json()),
     },
   };
 }

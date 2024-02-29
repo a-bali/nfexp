@@ -8,18 +8,18 @@ export function formatBytes(bytes, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
-// make a call to the API
-export function fetchApi(api, method, params) {
-  const url = (import.meta.env.VITE_API_BASEURL || "") + "/api/" + api;
-  if (method.toLowerCase() == "get") {
-    return fetch(url + "?" + new URLSearchParams(params));
-  } else {
-    return fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(params),
-    });
-  }
+// return url for api call
+export function apiUrl(u) {
+  return (import.meta.env.VITE_API_BASEURL || "") + "/api/" + u;
+}
+
+// form body for POST request
+export function postBody(params) {
+  return {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(params),
+  };
 }
 
 // convert CSV to array/map format

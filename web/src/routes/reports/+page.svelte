@@ -1,24 +1,20 @@
 <script>
   import Report from "$lib/Report.svelte";
-  import { fetchApi } from "$lib";
+  import { apiUrl, postBody } from "$lib";
   export let data;
   let selected;
-  let output;
+  let result;
   let format;
 
   $: data.reports.promise.then((r) => runCommand(r[selected]));
 
   async function runCommand(r) {
     if (!r) {
-      output = "";
+      result = "";
       return false;
     }
     format = r.format;
-    output = fetchApi("cmd", "POST", {
-      command: r.command,
-      filter: r.filter,
-      format: r.format,
-    }).then((v) => v.text());
+    result = fetch(apiUrl("cmd"), postBody(r)).then((v) => v.text());
   }
 </script>
 
@@ -41,10 +37,10 @@
   {/await}
 </main>
 
-{#if output}
-  {#await output}
+{#if result}
+  {#await result}
     ...
-  {:then output}
-    <Report report={output} {format} />
+  {:then report}
+    <Report {report} {format} />
   {/await}
 {/if}

@@ -1,9 +1,11 @@
-import { fetchApi } from "$lib";
+import { apiUrl, postBody } from "$lib";
 
 export async function load({ fetch, params }) {
   return {
     overview: {
-      promise: fetchApi("cmd", "POST", { command: "-g" }).then((r) => r.text()),
+      promise: fetch(apiUrl("cmd"), postBody({ command: "-g" })).then((r) =>
+        r.text(),
+      ),
     },
   };
 }
