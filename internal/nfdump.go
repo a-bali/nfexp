@@ -20,6 +20,14 @@ func runNfdump(params ...string) (string, error) {
 	return string(output), error
 }
 
+func getFirst(arr []string) string {
+	if len(arr) > 0 {
+		return arr[0]
+	} else {
+		return ""
+	}
+}
+
 func ServeCmd(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	format := "text"
@@ -32,6 +40,13 @@ func ServeCmd(w http.ResponseWriter, r *http.Request) {
 		}
 		if len(r.Form["filter"]) > 0 {
 			params = append(params, strings.Split(r.Form["filter"][0], " ")...)
+		}
+
+		if len(r.Form["save"]) > 0 {
+			SaveReport(getFirst(r.Form["save"]),
+				getFirst(r.Form["command"]),
+				getFirst(r.Form["filter"]),
+				getFirst(r.Form["format"]))
 		}
 
 		res, _ := runNfdump(params...)
