@@ -29,7 +29,7 @@ func loadReports() {
 	}
 }
 
-func SaveReports() {
+func saveReports() {
 	log.Println("Saving reports to: " + ReportFile)
 	f, err := os.Create(ReportFile)
 	if err != nil {
@@ -52,7 +52,13 @@ func SaveReport(name string, command string, filter string, format string) {
 		Filter:  filter,
 		Format:  format,
 	}
-	SaveReports()
+	saveReports()
+}
+
+func DeleteReport(id string) {
+	loadReports()
+	delete(reports, id)
+	saveReports()
 }
 
 func ServeReports(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +70,8 @@ func ServeReports(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	method := r.Method
 
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Methods", "GET, OPTIONS, DELETE")
 
 	switch method {
 	case "GET":
@@ -74,10 +81,16 @@ func ServeReports(w http.ResponseWriter, r *http.Request) {
 		} else {
 			code = http.StatusOK
 		}
-	case "POST":
-		code = http.StatusNotFound
+	case "OPTIONS":
+		code = http.StatusOK
 	case "DELETE":
-		code = http.StatusNotFound
+		id := r.URL.Query().Get("uuid")
+		if len(id) > 0 {
+			DeleteReport(id)
+			code = http.StatusOK
+		} else {
+			code = http.StatusInternalServerError
+		}
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return

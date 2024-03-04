@@ -1,6 +1,7 @@
 <script>
   import Report from "$lib/Report.svelte";
   import { apiUrl, postBody } from "$lib";
+  import { invalidateAll } from "$app/navigation";
   export let data;
   let selected;
   let result;
@@ -15,6 +16,13 @@
     }
     format = r.format;
     result = fetch(apiUrl("cmd"), postBody(r)).then((v) => v.text());
+  }
+
+  async function delReport() {
+    fetch(apiUrl("reports?uuid=" + selected), { method: "DELETE" }).then(() => {
+      selected = undefined;
+      invalidateAll();
+    });
   }
 </script>
 
@@ -41,6 +49,7 @@
   {#await result}
     ...
   {:then report}
+    <button on:click={delReport}>(delete report)</button>
     <Report {report} {format} />
   {/await}
 {/if}

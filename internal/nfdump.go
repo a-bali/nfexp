@@ -42,7 +42,7 @@ func ServeCmd(w http.ResponseWriter, r *http.Request) {
 			params = append(params, strings.Split(r.Form["filter"][0], " ")...)
 		}
 
-		if len(r.Form["save"]) > 0 {
+		if len(r.Form["save"]) > 0 && len(r.Form["save"][0]) > 0 {
 			SaveReport(getFirst(r.Form["save"]),
 				getFirst(r.Form["command"]),
 				getFirst(r.Form["filter"]),
