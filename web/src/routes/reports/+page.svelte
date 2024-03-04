@@ -49,7 +49,8 @@
   {#await result}
     ...
   {:then report}
-    <button on:click={delReport}>(delete report)</button>
     <Report {report} {format} />
+    <p />
+    <button on:click={delReport}>(delete report)</button>
   {/await}
 {/if}

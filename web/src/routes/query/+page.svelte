@@ -12,7 +12,7 @@
   }
 </script>
 
-<h2>Query</h2>
+<h1>Query</h1>
 
 <Query
   params={localStorage.query ? JSON.parse(localStorage.query) : {}}

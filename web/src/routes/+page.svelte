@@ -75,7 +75,7 @@
     });
 </script>
 
-<h1>Overview</h1>
+<h1>Traffic / flow overview</h1>
 <main>
     {#await data.overview.promise}
         (loading)
