@@ -1,3 +1,10 @@
+import dayjs from "dayjs";
+
+// format date
+export function formatDate(d) {
+    return dayjs(d).format("YYYY/MM/DD HH:mm:ss");
+}
+
 // convert bytes to human readable KiB/MiB/etc
 export function formatBytes(bytes, decimals = 2) {
   if (!+bytes) return "0";
@@ -58,3 +65,4 @@ export function csv2map(csv) {
     });
   return map;
 }
+

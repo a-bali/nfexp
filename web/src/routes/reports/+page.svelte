@@ -2,6 +2,7 @@
   import Report from "$lib/Report.svelte";
   import { apiUrl, postBody } from "$lib";
   import { invalidateAll } from "$app/navigation";
+  import { timespan } from "$lib/timespan.js";
   export let data;
   let selected;
   let result;
@@ -15,7 +16,10 @@
       return false;
     }
     format = r.format;
-    result = fetch(apiUrl("cmd"), postBody(r)).then((v) => v.text());
+    result = fetch(
+      apiUrl("cmd"),
+      postBody({ ...r, ...{ from: $timespan.from, to: $timespan.to } }),
+    ).then((v) => v.text());
   }
 
   async function delReport() {

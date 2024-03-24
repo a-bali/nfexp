@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/stores";
+  import Timespan from "$lib/Timespan.svelte";
 
   var tabs = [
     { name: "Home", href: "/" },
@@ -11,6 +12,9 @@
 </script>
 
 <div class="title">nfexp</div>
+<div class="time">
+  <Timespan />
+</div>
 <nav>
   <ul class="tabs">
     {#each tabs as { name, href }}
@@ -45,6 +49,10 @@
     float: right;
     font-weight: bold;
     font-size: 150%;
+  }
+  .time {
+    float: right;
+    padding: 10px 20px;
   }
   .tabs {
     margin: 0;
